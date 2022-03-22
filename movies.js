@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 
 // Pre-load Emoji Source: https://javascript.plainenglish.io/adding-loader-to-your-deployed-projects-d8f389e8c928
@@ -44,4 +44,27 @@ init();
     }
     movieLover();
 
+
+        $('#form-submit').click(function (e) {
+        const movieTitle = $('#movie-name').value;
+        const movieRating = $('#rating').value;
+        const movieToPost = {
+            title: movieTitle,
+            rating: movieRating
+        }
+
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(movieToPost)
+        };
+
+//
+        function getBooks() {
+            fetch(movieURL).then(resp => resp.json()).then(data => console.log(data));
+        }
+getBooks();
+        });
 

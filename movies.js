@@ -31,8 +31,10 @@ init();
             let html = '';
 
             for (let movie of movies) {
-                html += `<h1 class=title>${movie.title}</h1>`
+                html += `<h1 class="title">${movie.title}</h1>`
                 html += `<div class="rating">${movie.rating}</div>`
+                html += `<button id="deleteMovie" data-id="${movie.id}">Delete a Movie</button>`
+
             }
 
             console.log(movies)
@@ -46,8 +48,8 @@ init();
 
 
         $('#form-submit').click(function (e) {
-        const movieTitle = $('#movie-name').value;
-        const movieRating = $('#rating').value;
+        const movieTitle = $('#movie-name').val();
+        const movieRating = $('#rating').val();
         const movieToPost = {
             title: movieTitle,
             rating: movieRating
@@ -61,10 +63,26 @@ init();
             body: JSON.stringify(movieToPost)
         };
 
-//
-        function getBooks() {
-            fetch(movieURL).then(resp => resp.json()).then(data => console.log(data));
+
+        function getMovies() {
+            let movieId= '#${movie.id}'
+            fetch(movieURL + '/'+ movieId, postOptions).then(resp => resp.json()).then(data => console.log(data));
+            document.getElementById('deleteMovie').addEventListener('click', function (e){
+                console.log(e.target.id)
+
+                //     fetch(movieURL).then(resp => resp.json()).then(data => console.log(data));
+                //     // fetch(movieURL,{
+                //     //     method:'DELETE',
+                //     //     headers: {
+                //     //         'Content-Type': 'application/json'
+                //     //     }
+                //     // }).then(response => response.json()).then(data => console.log(data));
+            })
         }
-getBooks();
+
+
+
+
+getMovies();
         });
 

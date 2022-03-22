@@ -33,12 +33,15 @@ init();
             for (let movie of movies) {
                 html += `<h1 class="title">${movie.title}</h1>`
                 html += `<div class="rating">${movie.rating}</div>`
-                html += `<button id="deleteMovie" data-id="${movie.id}">Delete a Movie</button>`
+                html += `<label for="editRating">Edit Rating:</label>`
+                html += `<input id="editRating" type="text">`
+                html += `<button class="editButton">Edit</button>`
+                html += `<button class="deleteMovie" data-id="${movie.id}">Delete a Movie</button>`
 
             }
 
             console.log(movies)
-            $('#container').append(html);
+            $('#container').html(html);
         }).then(data => {
             // console.log(data)
             document.querySelector(".preload").style.display = "none"//stop the load
@@ -46,43 +49,67 @@ init();
     }
     movieLover();
 
-
+        // Function that allows the user to add a movie to the page without refreshing
         $('#form-submit').click(function (e) {
-        const movieTitle = $('#movie-name').val();
-        const movieRating = $('#rating').val();
-        const movieToPost = {
-            title: movieTitle,
-            rating: movieRating
-        }
+            const movieTitle = $('#movie-name').val();
+            const movieRating = $('#rating').val();
+            const movieToPost = {
+                title: movieTitle,
+                rating: movieRating
+            }
 
-        const postOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(movieToPost)
-        };
-
-
-        function getMovies() {
-            let movieId= '#${movie.id}'
-            fetch(movieURL + '/'+ movieId, postOptions).then(resp => resp.json()).then(data => console.log(data));
-            document.getElementById('deleteMovie').addEventListener('click', function (e){
-                console.log(e.target.id)
-
-                //     fetch(movieURL).then(resp => resp.json()).then(data => console.log(data));
-                //     // fetch(movieURL,{
-                //     //     method:'DELETE',
-                //     //     headers: {
-                //     //         'Content-Type': 'application/json'
-                //     //     }
-                //     // }).then(response => response.json()).then(data => console.log(data));
-            })
-        }
-
-
-
-
-getMovies();
+            const postOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(movieToPost)
+            };
+                    fetch(movieURL , postOptions).then(resp => resp.json()).then(data => console.log(data)).then(movieLover);
         });
+
+    // Function that allows user to delete a movie without refreshing the page
+            function deleteMovie(id) {
+                // let movieId = ${movie.id
+
+                fetch(movieURL + '/' + id, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(response => response.json()).then(data => console.log(data)).then(movieLover);
+
+
+
+        }
+
+
+            $('#container').on('click','.deleteMovie',function (e) {
+                deleteMovie(e.target.dataset.id)
+            })
+
+        //Function that allows user to edit movie rating
+        function editRating(id){
+            let newRating = $('#editRating').val();
+            $('.rating').html(newRating)
+
+            const patchOptions = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                // body: JSON.stringify(modification)
+            }
+
+            fetch(movieURL + '/' +id, patchOptions).then(movieLover);
+
+            }
+
+            $('#container').on('click','.editButton', function(e){
+                // console.log(e)
+                editRating(e.target.dataset.id)
+            })
+
+
+
 

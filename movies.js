@@ -1,7 +1,7 @@
 "use strict"
-/**********************  loader ***********************/
 
-//https://javascript.plainenglish.io/adding-loader-to-your-deployed-projects-d8f389e8c928
+
+// Pre-load Emoji Source: https://javascript.plainenglish.io/adding-loader-to-your-deployed-projects-d8f389e8c928
 const loader = document.querySelector('.preload');
 const emoji = loader.querySelector('.emoji');
 
@@ -21,7 +21,7 @@ const init = () => {
 }
 init();
 
-
+//set movie arrays and URL variables to use in function and fetch.
     let movieArr = [];
     let movieURL ='https://boom-protective-bambiraptor.glitch.me/movies';
     //Create function movielover to include the fetch and movie data we want to append to html.

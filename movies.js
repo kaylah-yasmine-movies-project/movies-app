@@ -31,12 +31,14 @@ init();
             let html = '';
 
             for (let movie of movies) {
-                html += `<h1 class="title">${movie.title}</h1>`
-                html += `<div class="rating">${movie.rating}</div>`
+                html += `<div style="width: 18rem;">`
+                html += `<div class="card-body text-white bg-secondary mb-5 px-0  shadow rounded">`
+                html += `<h1 class="card-header mx-0 text-center" class="title">${movie.title}</h1>`
+                html += `<div class="rating">Rating: ${movie.rating}</div>`
                 html += `<label for="editRating">Edit Rating:</label>`
-                html += `<input id="editRating" type="text">`
-                html += `<button class="editButton" data-id="${movie.id}">Edit</button>`
-                html += `<button class="deleteMovie" data-id="${movie.id}">Delete a Movie</button>`
+                html += `<input id="editRating" type="text" class="rounded mb-2 mx-2" style="width: 5rem;">`
+                html += `<button class="editButton" class="btn btn-sm" data-id="${movie.id}">Edit</button>`
+                html += `<button class="d-grid col-12 btn btn-info block" id="deleteMovie" data-id="${movie.id}">Delete Movie</button></div></div>`
 
             }
 
@@ -84,7 +86,7 @@ init();
         }
 
 
-            $('#container').on('click','.deleteMovie',function (e) {
+            $('#container').on('click','#deleteMovie',function (e) {
                 deleteMovie(e.target.dataset.id)
             })
 

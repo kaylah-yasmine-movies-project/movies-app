@@ -35,7 +35,7 @@ init();
                 html += `<div class="rating">${movie.rating}</div>`
                 html += `<label for="editRating">Edit Rating:</label>`
                 html += `<input id="editRating" type="text">`
-                html += `<button class="editButton">Edit</button>`
+                html += `<button class="editButton" data-id="${movie.id}">Edit</button>`
                 html += `<button class="deleteMovie" data-id="${movie.id}">Delete a Movie</button>`
 
             }
@@ -91,17 +91,19 @@ init();
         //Function that allows user to edit movie rating
         function editRating(id){
             let newRating = $('#editRating').val();
-            $('.rating').html(newRating)
+           let newMovieRating = {
+			   rating: newRating
+		   }
 
             const patchOptions = {
                 method: 'PATCH',
                 headers: {
                     'Content-Type' : 'application/json'
                 },
-                // body: JSON.stringify(modification)
+                body: JSON.stringify(newMovieRating)
             }
 
-            fetch(movieURL + '/' +id, patchOptions).then(movieLover);
+            fetch(movieURL + '/' +id, patchOptions).then(response => response.json()).then(data => console.log(data)).then(movieLover);
 
             }
 

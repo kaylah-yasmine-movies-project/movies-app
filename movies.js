@@ -31,14 +31,14 @@ init();
             let html = '';
 
             for (let movie of movies) {
-                html += `<div style="width: 18rem;">`
-                html += `<div class="card-body text-white bg-secondary mb-5 px-0  shadow rounded">`
-                html += `<h1 class="card-header mx-0 text-center" class="title">${movie.title}</h1>`
+                html += `<div style="width: 20rem;">`
+                html += `<div class="card-body text-white bg-dark mb-5 px-0  shadow rounded">`
+                html += `<h2 class="card-header mx-0 text-center" class="title">${movie.title}</h2>`
                 html += `<div class="rating">Rating: ${movie.rating}</div>`
                 html += `<label for="editRating">Edit Rating:</label>`
                 html += `<input id="editRating" type="text" class="rounded mb-2 mx-2" style="width: 5rem;">`
                 html += `<button class="editButton" class="btn btn-sm" data-id="${movie.id}">Edit</button>`
-                html += `<button class="d-grid col-12 btn btn-info block" id="deleteMovie" data-id="${movie.id}">Delete Movie</button></div></div>`
+                html += `<button class="d-grid col-12 btn btn-info block bg-secondary text-white" id="deleteMovie" data-id="${movie.id}">Delete Movie</button></div></div>`
 
             }
 

@@ -12,7 +12,7 @@ const interval = 125;
 const loadEmojis = (arr) => {
     setInterval(() => {
         emoji.innerText = arr[Math.floor(Math.random() * arr.length)];
-        //console.log(Math.floor(Math.random() * arr.length))
+        // console.log(Math.floor(Math.random() * arr.length))
     }, interval);
 }
 
@@ -70,9 +70,34 @@ init();
                     fetch(movieURL , postOptions).then(resp => resp.json()).then(data => console.log(data)).then(movieLover);
         });
 
+
+//Function that allows user to edit movie rating
+function editRating(id){
+    let newRating = $('#editRating').val();
+    let newMovieRating = {
+        rating: newRating
+    }
+
+    const patchOptions = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(newMovieRating)
+    }
+
+    fetch(movieURL + '/' +id, patchOptions).then(response => response.json()).then(data => console.log(data)).then(movieLover);
+
+}
+
+$('#container').on('click','.editButton', function(e){
+    // console.log(e)
+    editRating(e.target.dataset.id)
+})
+
     // Function that allows user to delete a movie without refreshing the page
             function deleteMovie(id) {
-                // let movieId = ${movie.id
+
 
                 fetch(movieURL + '/' + id, {
                     method: 'DELETE',
@@ -90,29 +115,7 @@ init();
                 deleteMovie(e.target.dataset.id)
             })
 
-        //Function that allows user to edit movie rating
-        function editRating(id){
-            let newRating = $('#editRating').val();
-           let newMovieRating = {
-			   rating: newRating
-		   }
 
-            const patchOptions = {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify(newMovieRating)
-            }
-
-            fetch(movieURL + '/' +id, patchOptions).then(response => response.json()).then(data => console.log(data)).then(movieLover);
-
-            }
-
-            $('#container').on('click','.editButton', function(e){
-                // console.log(e)
-                editRating(e.target.dataset.id)
-            })
 
 
 

@@ -112,7 +112,11 @@ $('#container').on('click','.editButton', function(e){
 
 
             $('#container').on('click','#deleteMovie',function (e) {
+                var response = confirm('Are you sure you want to delete this movie?');
+                if(response == true){
                 deleteMovie(e.target.dataset.id)
+                }
+
             })
 
 
